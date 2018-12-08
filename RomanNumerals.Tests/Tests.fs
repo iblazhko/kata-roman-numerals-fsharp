@@ -13,3 +13,7 @@ let ``0 translates to empty string`` () =
 [<Fact>]
 let ``1 translates to I`` () =
     romanize 1 |> should equal "I"
+
+[<Fact>]
+let ``5 translates to V`` () =
+    romanize 5 |> should equal "V"
