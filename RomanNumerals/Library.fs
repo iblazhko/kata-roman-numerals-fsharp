@@ -1,5 +1,5 @@
 ﻿namespace RomanNumerals
 
-module Say =
-    let hello name =
-        printfn "Hello %s" name
+module Transformer =
+    let romanize number=
+        sprintf "%i" number
