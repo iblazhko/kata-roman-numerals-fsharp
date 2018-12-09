@@ -29,7 +29,22 @@ type ``Roman numerals transformation`` () =
 
     [<Theory>]
     [<MemberData("NegativeNumbersTestCases")>]
-    member verify.``Input validation: negative number cannot be converted to a roman numeral`` (testCase:TestCase) =
+    member verify.``Input validation: negative numbers cannot be converted to roman numeral`` (testCase:TestCase) =
+        (fun () -> romanize testCase.Value |> ignore) |> should throw typeof<System.ArgumentOutOfRangeException>
+
+    static member LargeNumbersTestCases
+        with get() =
+            [|
+                { Value = 4000; ExpectedRoman = "-" }
+                { Value = 4001; ExpectedRoman = "-" }
+                { Value = 10000; ExpectedRoman = "-" }
+            |]
+            |> Seq.map (fun (x) -> [| x |])
+            |> Seq.toArray
+
+    [<Theory>]
+    [<MemberData("LargeNumbersTestCases")>]
+    member verify.``Input validation: numbers larger or equal to 4000 cannot be converted to roman numeral`` (testCase:TestCase) =
         (fun () -> romanize testCase.Value |> ignore) |> should throw typeof<System.ArgumentOutOfRangeException>
 
     static member SingleLetterNumeralsTestCases
