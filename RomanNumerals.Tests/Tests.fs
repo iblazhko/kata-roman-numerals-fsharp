@@ -11,10 +11,6 @@ let ``0 translates to empty string`` () =
     romanize 0 |> should equal ""
 
 [<Fact>]
-let ``2 translates to II`` () =
-    romanize 2 |> should equal "II"
-
-[<Fact>]
 let ``4 translates to IV`` () =
     romanize 4 |> should equal "IV"
 
@@ -42,4 +38,24 @@ type ``Roman numerals transformation`` () =
     [<Theory>]
     [<MemberData("SingleLetterNumeralsTestCases")>]
     member verify.``Single letter roman numerals`` (testCase:TestCase) =
+        romanize(testCase.Value) |> should equal testCase.ExpectedRoman
+
+    static member SameLetterNumeralsTestCases
+        with get() =
+            [|
+                { Value =    2; ExpectedRoman = "II"  }
+                { Value =    3; ExpectedRoman = "III" }
+                { Value =   20; ExpectedRoman = "XX"  }
+                { Value =   30; ExpectedRoman = "XXX" }
+                { Value =  200; ExpectedRoman = "CC"  }
+                { Value =  300; ExpectedRoman = "CCC" }
+                { Value = 2000; ExpectedRoman = "MM"  }
+                { Value = 3000; ExpectedRoman = "MMM" }
+            |]
+            |> Seq.map (fun (x) -> [| x |])
+            |> Seq.toArray
+
+    [<Theory>]
+    [<MemberData("SameLetterNumeralsTestCases")>]
+    member verify.``Same letter roman numerals`` (testCase:TestCase) =
         romanize(testCase.Value) |> should equal testCase.ExpectedRoman
