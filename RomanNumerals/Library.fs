@@ -5,4 +5,5 @@ module Transformer =
         match number with
         | 0 -> ""
         | 1 -> "I"
+        | 2 -> "II"
         | 5 -> "V"
