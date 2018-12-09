@@ -33,4 +33,6 @@ module Transformer =
             processBucket (List.append numerals [bucketNumerals]) (reminder - bucketSize)
 
     let romanize number =
+        if (number < 0) then raise (System.ArgumentOutOfRangeException("number", "Negative numbers cannot be translated"))
+
         processBucket [] number

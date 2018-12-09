@@ -30,7 +30,7 @@ type ``Roman numerals transformation`` () =
     [<Theory>]
     [<MemberData("NegativeNumbersTestCases")>]
     member verify.``Input validation: negative number cannot be converted to a roman numeral`` (testCase:TestCase) =
-        romanize testCase.Value |> should throw typeof<System.ArgumentOutOfRangeException>
+        (fun () -> romanize testCase.Value |> ignore) |> should throw typeof<System.ArgumentOutOfRangeException>
 
     static member SingleLetterNumeralsTestCases
         with get() =
