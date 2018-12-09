@@ -6,10 +6,6 @@ open Xunit
 open FsUnit
 open FsUnit.Xunit
 
-[<Fact>]
-let ``0 translates to empty string`` () =
-    romanize 0 |> should equal ""
-
 type TestCase =
     {
         Value: int
@@ -17,6 +13,10 @@ type TestCase =
     }
 
 type ``Roman numerals transformation`` () =
+    [<Fact>]
+    let ``Edge case: 0 translates to empty string`` () =
+        romanize 0 |> should equal ""
+
     static member SingleLetterNumeralsTestCases
         with get() =
             [|
@@ -33,7 +33,7 @@ type ``Roman numerals transformation`` () =
 
     [<Theory>]
     [<MemberData("SingleLetterNumeralsTestCases")>]
-    member verify.``Single letter roman numerals`` (testCase:TestCase) =
+    member verify.``Transformation: single letter roman numerals`` (testCase:TestCase) =
         romanize(testCase.Value) |> should equal testCase.ExpectedRoman
 
     static member SameLetterNumeralsTestCases
@@ -53,7 +53,7 @@ type ``Roman numerals transformation`` () =
 
     [<Theory>]
     [<MemberData("SameLetterNumeralsTestCases")>]
-    member verify.``Same letter roman numerals`` (testCase:TestCase) =
+    member verify.``Transformation: same letter roman numerals`` (testCase:TestCase) =
         romanize(testCase.Value) |> should equal testCase.ExpectedRoman
 
     static member SubtractiveNotationTestCases
@@ -71,7 +71,7 @@ type ``Roman numerals transformation`` () =
 
     [<Theory>]
     [<MemberData("SubtractiveNotationTestCases")>]
-    member verify.``Subtractive notation roman numerals`` (testCase:TestCase) =
+    member verify.``Transformation: subtractive notation roman numerals`` (testCase:TestCase) =
         romanize(testCase.Value) |> should equal testCase.ExpectedRoman
 
     static member MixedNumbersTestCases
@@ -91,5 +91,5 @@ type ``Roman numerals transformation`` () =
 
     [<Theory>]
     [<MemberData("MixedNumbersTestCases")>]
-    member verify.``Mixed numbers should translate using additive pattern`` (testCase:TestCase) =
+    member verify.``Transformation: mixed numbers should translate using additive pattern`` (testCase:TestCase) =
         romanize(testCase.Value) |> should equal testCase.ExpectedRoman
