@@ -77,3 +77,23 @@ type ``Roman numerals transformation`` () =
     [<MemberData("SubtractiveNotationTestCases")>]
     member verify.``Subtractive notation roman numerals`` (testCase:TestCase) =
         romanize(testCase.Value) |> should equal testCase.ExpectedRoman
+
+    static member MixedNumbersTestCases
+        with get() =
+            [|
+                { Value =   39; ExpectedRoman = "XXXIX" }
+                { Value =  207; ExpectedRoman = "CCVII" }
+                { Value =  246; ExpectedRoman = "CCXLVI" }
+                { Value = 1066; ExpectedRoman = "MLXVI" }
+                { Value = 1776; ExpectedRoman = "MDCCLXXVI" }
+                { Value = 1873; ExpectedRoman = "MDCCCLXXIII" }
+                { Value = 1984; ExpectedRoman = "MCMLXXXIV" }
+                { Value = 2018; ExpectedRoman = "MMXVIII" }
+            |]
+            |> Seq.map (fun (x) -> [| x |])
+            |> Seq.toArray
+
+    [<Theory>]
+    [<MemberData("MixedNumbersTestCases")>]
+    member verify.``Mixed numbers should translate using additive pattern`` (testCase:TestCase) =
+        romanize(testCase.Value) |> should equal testCase.ExpectedRoman
