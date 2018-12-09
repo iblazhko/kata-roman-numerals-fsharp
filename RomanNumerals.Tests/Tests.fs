@@ -21,3 +21,7 @@ let ``5 translates to V`` () =
 [<Fact>]
 let ``2 translates to II`` () =
     romanize 2 |> should equal "II"
+
+[<Fact>]
+let ``4 translates to IV`` () =
+    romanize 4 |> should equal "IV"
