@@ -10,10 +10,6 @@ open FsUnit.Xunit
 let ``0 translates to empty string`` () =
     romanize 0 |> should equal ""
 
-[<Fact>]
-let ``4 translates to IV`` () =
-    romanize 4 |> should equal "IV"
-
 type TestCase =
     {
         Value: int
