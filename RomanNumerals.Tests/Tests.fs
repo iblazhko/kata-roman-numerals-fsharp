@@ -59,3 +59,21 @@ type ``Roman numerals transformation`` () =
     [<MemberData("SameLetterNumeralsTestCases")>]
     member verify.``Same letter roman numerals`` (testCase:TestCase) =
         romanize(testCase.Value) |> should equal testCase.ExpectedRoman
+
+    static member SubtractiveNotationTestCases
+        with get() =
+            [|
+                { Value =    4; ExpectedRoman = "IV" }
+                { Value =    9; ExpectedRoman = "IX" }
+                { Value =   40; ExpectedRoman = "XL" }
+                { Value =   90; ExpectedRoman = "XC" }
+                { Value =  400; ExpectedRoman = "CD" }
+                { Value =  900; ExpectedRoman = "CM" }
+            |]
+            |> Seq.map (fun (x) -> [| x |])
+            |> Seq.toArray
+
+    [<Theory>]
+    [<MemberData("SubtractiveNotationTestCases")>]
+    member verify.``Subtractive notation roman numerals`` (testCase:TestCase) =
+        romanize(testCase.Value) |> should equal testCase.ExpectedRoman
