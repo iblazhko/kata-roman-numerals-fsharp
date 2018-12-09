@@ -17,6 +17,21 @@ type ``Roman numerals transformation`` () =
     let ``Edge case: 0 translates to empty string`` () =
         romanize 0 |> should equal ""
 
+    static member NegativeNumbersTestCases
+        with get() =
+            [|
+                { Value =  -1; ExpectedRoman = "-" }
+                { Value =  -2; ExpectedRoman = "-" }
+                { Value = -42; ExpectedRoman = "-" }
+            |]
+            |> Seq.map (fun (x) -> [| x |])
+            |> Seq.toArray
+
+    [<Theory>]
+    [<MemberData("NegativeNumbersTestCases")>]
+    member verify.``Input validation: negative number cannot be converted to a roman numeral`` (testCase:TestCase) =
+        romanize testCase.Value |> should throw typeof<System.ArgumentOutOfRangeException>
+
     static member SingleLetterNumeralsTestCases
         with get() =
             [|
@@ -93,3 +108,4 @@ type ``Roman numerals transformation`` () =
     [<MemberData("MixedNumbersTestCases")>]
     member verify.``Transformation: mixed numbers should translate using additive pattern`` (testCase:TestCase) =
         romanize(testCase.Value) |> should equal testCase.ExpectedRoman
+
