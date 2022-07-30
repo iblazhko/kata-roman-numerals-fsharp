@@ -20,7 +20,7 @@ module Transformer =
         ]
         |> List.sortDescending
 
-    let findLargestFullBucker number =
+    let findLargestFullBucket number =
         buckets
         |> Seq.filter (fun (size,_) -> size <= number)
         |> Seq.head
@@ -29,7 +29,7 @@ module Transformer =
         match reminder with
         | 0 -> numerals |> String.concat ""
         | n ->
-            let bucketSize, bucketNumerals = (findLargestFullBucker n)
+            let bucketSize, bucketNumerals = (findLargestFullBucket n)
             processBucket (List.append numerals [bucketNumerals]) (reminder - bucketSize)
 
     let romanize number =
