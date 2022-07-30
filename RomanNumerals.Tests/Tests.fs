@@ -1,18 +1,19 @@
 module Tests
 
 open RomanNumerals.Transformer
-open System
 open Xunit
-open FsUnit
 open FsUnit.Xunit
 
-type TestCase =
-    {
-        Value: int
-        ExpectedRoman: string
-    }
+type TestCase =  { Value: int
+                   ExpectedRoman: string }
+
+let mapToTestTheoryData testCases =
+    testCases
+        |> Seq.map (fun (x) -> [| x |])
+        |> Seq.toArray
 
 type ``Roman numerals transformation`` () =
+
     [<Fact>]
     let ``Edge case: 0 translates to empty string`` () =
         romanize 0 |> should equal ""
@@ -24,8 +25,7 @@ type ``Roman numerals transformation`` () =
                 { Value =  -2; ExpectedRoman = "-" }
                 { Value = -42; ExpectedRoman = "-" }
             |]
-            |> Seq.map (fun (x) -> [| x |])
-            |> Seq.toArray
+            |> mapToTestTheoryData
 
     [<Theory>]
     [<MemberData("NegativeNumbersTestCases")>]
@@ -39,8 +39,7 @@ type ``Roman numerals transformation`` () =
                 { Value = 4001; ExpectedRoman = "-" }
                 { Value = 10000; ExpectedRoman = "-" }
             |]
-            |> Seq.map (fun (x) -> [| x |])
-            |> Seq.toArray
+            |> mapToTestTheoryData
 
     [<Theory>]
     [<MemberData("LargeNumbersTestCases")>]
@@ -58,8 +57,7 @@ type ``Roman numerals transformation`` () =
                 { Value =  500; ExpectedRoman = "D" }
                 { Value = 1000; ExpectedRoman = "M" }
             |]
-            |> Seq.map (fun (x) -> [| x |])
-            |> Seq.toArray
+            |> mapToTestTheoryData
 
     [<Theory>]
     [<MemberData("SingleLetterNumeralsTestCases")>]
@@ -78,8 +76,7 @@ type ``Roman numerals transformation`` () =
                 { Value = 2000; ExpectedRoman = "MM"  }
                 { Value = 3000; ExpectedRoman = "MMM" }
             |]
-            |> Seq.map (fun (x) -> [| x |])
-            |> Seq.toArray
+            |> mapToTestTheoryData
 
     [<Theory>]
     [<MemberData("SameLetterNumeralsTestCases")>]
@@ -96,8 +93,7 @@ type ``Roman numerals transformation`` () =
                 { Value =  400; ExpectedRoman = "CD" }
                 { Value =  900; ExpectedRoman = "CM" }
             |]
-            |> Seq.map (fun (x) -> [| x |])
-            |> Seq.toArray
+            |> mapToTestTheoryData
 
     [<Theory>]
     [<MemberData("SubtractiveNotationTestCases")>]
@@ -116,11 +112,11 @@ type ``Roman numerals transformation`` () =
                 { Value = 1984; ExpectedRoman = "MCMLXXXIV" }
                 { Value = 2018; ExpectedRoman = "MMXVIII" }
             |]
-            |> Seq.map (fun (x) -> [| x |])
-            |> Seq.toArray
+            |> mapToTestTheoryData
 
     [<Theory>]
     [<MemberData("MixedNumbersTestCases")>]
     member verify.``Transformation: mixed numbers should translate using additive pattern`` (testCase:TestCase) =
         romanize(testCase.Value) |> should equal testCase.ExpectedRoman
+
 
