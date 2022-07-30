@@ -9,7 +9,7 @@ type TestCase =  { Value: int
 
 let mapToTestTheoryData testCases =
     testCases
-        |> Seq.map (fun (x) -> [| x |])
+        |> Seq.map (fun x -> [| x |])
         |> Seq.toArray
 
 type ``Roman numerals transformation`` () =

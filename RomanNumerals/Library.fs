@@ -18,7 +18,7 @@ module Transformer =
             400, "CD"
             900, "CM"
         ]
-        |> List.sortDescending
+        |> Seq.sortDescending
 
     let findLargestFullBucket number =
         buckets
