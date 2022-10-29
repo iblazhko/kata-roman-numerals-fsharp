@@ -1,6 +1,6 @@
 module Tests
 
-open RomanNumerals.Transformer
+open RomanNumerals
 open Xunit
 open FsUnit.Xunit
 
