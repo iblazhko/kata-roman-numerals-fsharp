@@ -11,3 +11,7 @@ max_line_length = 120
 
 [*.{md,markdown}]
 trim_trailing_whitespace = false
+
+[*.{csproj,fsproj}]
+indent_size = 2
+

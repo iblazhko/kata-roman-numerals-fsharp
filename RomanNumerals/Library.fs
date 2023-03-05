@@ -24,7 +24,7 @@ let private findLargestFullBucket number =
     |> Seq.filter (fun (size,_) -> size <= number)
     |> Seq.head
 
-let private rec processBucket numerals reminder =
+let rec private processBucket numerals reminder =
     match reminder with
     | 0 -> numerals |> String.concat ""
     | n ->
