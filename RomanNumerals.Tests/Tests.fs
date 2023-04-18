@@ -7,7 +7,7 @@ open FsUnit.Xunit
 type TestCase =  { Value: int
                    ExpectedRoman: string }
 
-let mapToTestTheoryData testCases =
+let private mapToTestTheoryData testCases =
     testCases
         |> Seq.map (fun x -> [| x |])
         |> Seq.toArray
@@ -30,7 +30,8 @@ type ``Roman numerals transformation`` () =
     [<Theory>]
     [<MemberData("NegativeNumbersTestCases")>]
     member verify.``Input validation: negative numbers cannot be converted to roman numeral`` (testCase:TestCase) =
-        (fun () -> romanize testCase.Value |> ignore) |> should throw typeof<System.ArgumentOutOfRangeException>
+        (fun () -> romanize testCase.Value |> ignore)
+        |> should throw typeof<System.ArgumentOutOfRangeException>
 
     static member LargeNumbersTestCases
         with get() =
@@ -44,7 +45,8 @@ type ``Roman numerals transformation`` () =
     [<Theory>]
     [<MemberData("LargeNumbersTestCases")>]
     member verify.``Input validation: numbers larger or equal to 4000 cannot be converted to roman numeral`` (testCase:TestCase) =
-        (fun () -> romanize testCase.Value |> ignore) |> should throw typeof<System.ArgumentOutOfRangeException>
+        (fun () -> romanize testCase.Value |> ignore)
+        |> should throw typeof<System.ArgumentOutOfRangeException>
 
     static member SingleLetterNumeralsTestCases
         with get() =
