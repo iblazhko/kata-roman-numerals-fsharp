@@ -2,7 +2,7 @@
 
 ## Problem description: Convert a number to Roman Numerals representation
 
-Following is the excerpt from Wiklipedia article
+Following is the excerpt from Wikipedia article
 <https://en.wikipedia.org/wiki/Roman_numerals>.
 
 

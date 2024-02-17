@@ -24,12 +24,12 @@ let private findLargestFullBucket number =
     |> Seq.filter (fun (size,_) -> size <= number)
     |> Seq.head
 
-let rec private processBucket numerals reminder =
-    match reminder with
+let rec private processBucket numerals remainder =
+    match remainder with
     | 0 -> numerals |> String.concat ""
     | n ->
         let bucketSize, bucketNumerals = (findLargestFullBucket n)
-        processBucket (List.append numerals [bucketNumerals]) (reminder - bucketSize)
+        processBucket (List.append numerals [bucketNumerals]) (remainder - bucketSize)
 
 let romanize number =
     if (number < 0 || number >= 4000) then raise (System.ArgumentOutOfRangeException("number", "Expected a number in the range [0,4000)"))
